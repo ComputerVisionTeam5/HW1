@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import cv2 as cv
 
-def plot_img(n, figsize,titles,imgs):
+def plot_img(n, figsize,titles,imgs, n_row=1):
     """
     Plots multiple images in a single row with specified titles.
 
@@ -12,11 +12,11 @@ def plot_img(n, figsize,titles,imgs):
     - imgs (list of numpy arrays): List of images to be plotted. Images should be in BGR format.
     """
     x, y = figsize
-    fig, axes = plt.subplots(1, n, figsize=(x, y))
+    fig, axes = plt.subplots(n_row, n // n_row, figsize=(x, y))
+    axes = axes.ravel()
     for i in range(n):
         axes[i].imshow(cv.cvtColor(imgs[i], cv.COLOR_BGR2RGB))
         axes[i].set_title(titles[i])
         axes[i].axis('off')
-
     plt.tight_layout()
     plt.show()
